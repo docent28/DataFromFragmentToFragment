@@ -22,9 +22,13 @@ class TwoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dataModel.message.observe(activity as LifecycleOwner, {
+        dataModel.messageForFragmentTwo.observe(activity as LifecycleOwner, {
             binding.txtViewTwo.text = it
         })
+        binding.btnSendToFragmentOne.setOnClickListener {
+            dataModel.messageForFragmentOne.value =
+                arrayOf("один", "два", "три", "четыре", "пять").random().toString()
+        }
     }
 
     companion object {

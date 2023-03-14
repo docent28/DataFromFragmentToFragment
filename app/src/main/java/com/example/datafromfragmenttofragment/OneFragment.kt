@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.example.datafromfragmenttofragment.databinding.FragmentOneBinding
 
 class OneFragment : Fragment() {
@@ -22,8 +23,11 @@ class OneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnSendToFragmentTwo.setOnClickListener {
-            dataModel.message.value = (100..999).random().toString()
+            dataModel.messageForFragmentTwo.value = (100..999).random().toString()
         }
+        dataModel.messageForFragmentOne.observe(activity as LifecycleOwner, {
+            binding.txtViewOne.text = it
+        })
     }
 
     companion object {
